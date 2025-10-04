@@ -1,0 +1,113 @@
+﻿@{
+    Layout = "~/Views/Shared/_AjaxLayout.cshtml";
+}
+@using Service.ViewModel
+@model IList<Cliente>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title ">Clientes</h4>
+                    <p class="card-category">@Model.Count() cliente@(Model.Count() != 1 ? "s" : "")</p>
+                </div>
+                <div class="card-body">
+                    @if (Model.Count() > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <tr>
+                                        <th>Nome Fantasia</th>
+                                        <th>CNPJ</th>
+                                        <th>Porte</th>
+                                        <th>Ativo</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var cliente in this.Model)
+                                    {
+                                        <tr>
+                                            <td class="nome-cliente">
+                                                @cliente.NomeFantasia
+                                            </td>
+                                            <td>
+                                                @cliente.Cnpj
+                                            </td>
+                                            <td>
+                                                @cliente.Porte.Nome
+                                            </td>
+                                            <td>
+                                                @(cliente.Ativo ? "Sim" : "Não")
+                                            </td>
+                                            <td class="td-actions text-right">
+                                                <a class="btn btn-info" href="/Clientes/Cliente/@cliente.Id">
+                                                    <i class="material-icons">edit</i> Editar
+                                                    <div class="ripple-container"></div>
+                                                </a>
+
+                                                <a class="btn btn-warning" href="Clientes/Toggle/@cliente.Id">
+                                                    <i class="material-icons">@(cliente.Ativo ? "toggle_off" : "toggle_on")</i> @(cliente.Ativo ? "Desativar" : "Ativar")
+                                                    <div class="ripple-container"></div>
+                                                </a>
+
+                                                <a class="btn btn-danger remover" href="/Clientes/Remover/@cliente.Id">
+                                                    <i class="material-icons">close</i> Remover
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <h3>Não existem clientes cadastrados</h3>
+                    }
+                </div>
+
+                <div class="card-footer text-right">
+                    <a class="btn btn-danger btn-add" href="/Clientes/Cliente">
+                        <i class="material-icons">add</i> Cadastrar
+                        <div class="ripple-container"></div>
+                    </a>
+                </div>
+
+            </div>
+        </div>    
+    </div>
+</div>
+<script>
+    $('.td-actions a, a.btn-add').click(function () {
+
+        var url = $(this).attr('href');
+        var link = $(this);
+
+        var executar = link.hasClass('remover') ? false : true;
+
+        if (!executar) {
+            executar = confirm("Tem certeza que deseja remover o cliente " + $.trim(link.parent().parent().find('.nome-cliente').html()) + "?");
+        }
+
+        if (executar) {
+            $.ajax({
+                url: url,
+                data: { 'ajax': true },
+                success: function (retorno) {
+                    $('div.content').html(retorno);
+                },
+                beforeSend: function () {
+                    $('.overlay').show();
+                },
+                complete: function () {
+                    $('.overlay').hide();
+                }
+            });
+        }
+
+        return false;
+    });
+</script>

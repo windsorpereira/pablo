@@ -1,0 +1,97 @@
+﻿@using Service.ViewModel
+@model Dashboard
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-@(Model.ProporcaoInativos >= 0.8 ? "danger" : Model.ProporcaoInativos >= 0.5 ? "warning" : "success") card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">business</i>
+                    </div>
+                    <p class="card-category">Clientes Inativos</p>
+                    <h3 class="card-title">
+                        @Model.ClientesInativos/<small>@Model.TotalClientes</small>
+                    </h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+
+                        @if (Model.ProporcaoInativos >= 0.8)
+                        {
+                            <i class="material-icons">error</i><span>Muitos clientes inativos</span>
+                        }
+                        else if (Model.ProporcaoInativos >= 0.5)
+                        {
+                            <i class="material-icons">warning</i><span>Alguns clientes inativos</span>
+                        }
+                        else
+                        {
+                            <i class="material-icons">thumb_up</i><span>Mais da metade dos clientes cadastrados estão ativos</span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-stats">
+                <div class="card-header card-header-success card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">star</i>
+                    </div>
+                    <p class="card-category">Clientes de Grande Porte</p>
+                    <h3 class="card-title">@Model.ClientesGrandePorte</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">bookmark</i> VIPs
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+            <div class="card card-chart">
+                <div class="card-header card-header-warning">
+                    <div class="ct-chart" id="porteChart"></div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Quantidade de Clientes por Porte</h4>
+                    <p class="card-category"><br/></p>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">access_time</i> @DateTime.Now.ToLongDateString()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/Content/assets/js/plugins/chartist.min.js"></script>
+<script>
+    var dataPorteChart = {
+        labels: ['Pequeno', 'Médio', 'Grande'],
+        series: [[@Model.DadosPortes.Where(x => x.Porte == "Pequeno").FirstOrDefault().Quantidade, @Model.DadosPortes.Where(x => x.Porte == "Médio").FirstOrDefault().Quantidade, @Model.DadosPortes.Where(x => x.Porte == "Grande").FirstOrDefault().Quantidade]]
+    };
+    var optionsPorteChart = {
+        axisX: {
+            showGrid: false
+        },
+        low: 0,
+        chartPadding: {
+            top: 0,
+            right: 5,
+            bottom: 0,
+            left: 0
+        }
+    };
+    var responsiveOptions = [
+        ['screen and (max-width: 640px)', {
+            axisX: {
+                labelInterpolationFnc: function (value) {
+                    return value[0];
+                }
+            }
+        }]
+    ];
+    var porteChart = Chartist.Bar('#porteChart', dataPorteChart, optionsPorteChart, responsiveOptions);
+</script>

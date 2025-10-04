@@ -1,0 +1,39 @@
+CREATE DATABASE desafio_bc
+GO
+
+USE desafio_bc
+GO
+
+CREATE TABLE PORTE (
+  id INTEGER  NOT NULL   IDENTITY ,
+  nome VARCHAR(10)  NOT NULL    ,
+PRIMARY KEY(id));
+GO
+
+
+INSERT INTO PORTE (nome) VALUES ('Pequeno');
+INSERT INTO PORTE (nome) VALUES ('Médio');
+INSERT INTO PORTE (nome) VALUES ('Grande');
+
+GO
+
+
+
+
+CREATE TABLE CLIENTE (
+  id INTEGER  NOT NULL   IDENTITY ,
+  nome_fantasia VARCHAR(300)  NOT NULL  ,
+  PORTE_id INTEGER  NOT NULL  ,
+  cnpj BIGINT    ,
+  razao_social VARCHAR(500)    ,
+  ativo BIT  NOT NULL    ,
+PRIMARY KEY(id),
+  FOREIGN KEY(PORTE_id)
+    REFERENCES PORTE(id));
+GO
+
+
+CREATE INDEX IFK_POR_CLI ON CLIENTE (PORTE_id);
+GO
+
+

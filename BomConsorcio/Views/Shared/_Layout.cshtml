@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Desafio BC - Windsor Pereira
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+    <link href="/Content/assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="/Content/assets/demo/demo.css" rel="stylesheet" />
+    <style>
+        .main-panel > .content 
+        {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body class="">
+    <div class="wrapper ">
+        <div class="sidebar" data-color="green" data-background-color="white" data-image="/Content/assets/img/sidebar-1.jpg">
+            <!--
+                Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+                Tip 2: you can also add an image using data-image tag
+            -->
+            <div class="logo">
+                <a href="~/" class="simple-text logo-normal">
+                    <i class="material-icons">star</i>
+                    Desafio BC
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="nav-item active" data-color="green">
+                        <a class="nav-link" href="/Dashboard" title="Dashboard">
+                            <i class="material-icons">dashboard</i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-color="danger">
+                        <a class="nav-link" href="/Clientes" title="Clientes">
+                            <i class="material-icons">business</i>
+                            <p>Clientes</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-color="orange">
+                        <a class="nav-link" href="/Portes" title="Portes">
+                            <i class="material-icons">list_alt</i>
+                            <p>Portes</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <div class="content">
+                @RenderBody()
+            </div>
+            <footer class="footer">
+                <div class="container-fluid">
+                        
+                </div>
+            </footer>
+        </div>
+    </div>
+    <div class="overlay">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+    <style>
+        .overlay {
+            top: 0;
+            left: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            opacity: 0.3;
+            z-index: 9999;
+            display: none;
+        }
+
+        .lds-ring {
+            display: inline-block;
+            width: 64px;
+            height: 64px;
+            position: relative;
+            left: calc(50% - 32px);
+            top: calc(50% - 32px);
+        }
+
+        .lds-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 51px;
+            height: 51px;
+            margin: 6px;
+            border: 6px solid #fff;
+            border-radius: 50%;
+            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: #fff transparent transparent transparent;
+        }
+
+        .lds-ring div:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+
+        .lds-ring div:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+
+        .lds-ring div:nth-child(3) {
+            animation-delay: -0.15s;
+        }
+
+        @@keyframes lds-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <!--   Core JS Files   -->
+    <script src="/Content/assets/js/core/jquery.min.js"></script>
+    <script src="/Content/assets/js/core/popper.min.js"></script>
+    <script src="/Content/assets/js/core/bootstrap-material-design.min.js"></script>
+    <script src="/Content/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!-- Plugin for the momentJs  -->
+    <script src="/Content/assets/js/plugins/moment.min.js"></script>
+    <!--  Plugin for Sweet Alert -->
+    <script src="/Content/assets/js/plugins/sweetalert2.js"></script>
+    <!-- Forms Validations Plugin -->
+    <script src="/Content/assets/js/plugins/jquery.validate.min.js"></script>
+    <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+    <script src="/Content/assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <script src="/Content/assets/js/plugins/bootstrap-selectpicker.js"></script>
+    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+    <script src="/Content/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+    <script src="/Content/assets/js/plugins/jquery.dataTables.min.js"></script>
+    <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+    <script src="/Content/assets/js/plugins/bootstrap-tagsinput.js"></script>
+    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="/Content/assets/js/plugins/jasny-bootstrap.min.js"></script>
+    <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+    <script src="/Content/assets/js/plugins/fullcalendar.min.js"></script>
+    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+    <script src="/Content/assets/js/plugins/jquery-jvectormap.js"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="/Content/assets/js/plugins/nouislider.min.js"></script>
+    <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+    <!-- Library for adding dinamically elements -->
+    <script src="/Content/assets/js/plugins/arrive.min.js"></script>
+    <!-- Chartist JS -->
+    <script src="/Content/assets/js/plugins/chartist.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="/Content/assets/js/plugins/bootstrap-notify.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="/Content/assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+    
+    <script>
+        $(document).ready(function ()
+        {
+            $('.sidebar li.nav-item a').click(function () {
+
+                var url = $(this).attr('href');
+                var item = $(this).parent();
+                var link = $(this);
+
+                $.ajax({
+                    url: url,
+                    data: { 'ajax': true },
+                    success: function (retorno) {
+                        $('div.content').html(retorno);
+
+                        $('.sidebar li.nav-item').removeClass('active');
+                        item.addClass('active');
+
+                        $('.sidebar').attr('data-color', item.attr('data-color'));
+                    },
+                    error: function () {
+                        alert("Não foi possível efeturar a operação.\rTente Novamente.");
+                    },
+                    beforeSend: function () {
+                        $('.overlay').show();
+                    },
+                    complete: function () {
+                        $('.overlay').hide();
+                    }
+                });
+
+                return false;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "~/Views/Shared/_AjaxLayout.cshtml";
+}
+@using Service.ViewModel
+@model IList<Porte>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-warning">
+                    <h4 class="card-title ">Portes</h4>
+                    <p class="card-category">@Model.Count() Portes</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                                <tr>
+                                    <th>
+                                        Nome
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var porte in Model)
+                                {
+                                    <tr>
+                                        <td>@porte.Nome</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

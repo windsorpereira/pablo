@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "~/Views/Shared/_AjaxLayout.cshtml";
+}
+@using Service.ViewModel
+@model Cliente
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Cliente</h4>
+                    <p class="card-category">* Campos de preenchimento obrigatório</p>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/Clientes/Cliente">
+                        @Html.HiddenFor(x => x.Id)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Nome Fantasia *</label>
+                                    @Html.TextBoxFor(x => x.NomeFantasia, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group bmd-form-group is-filled">
+                                    <label class="bmd-label-floating">Porte *</label>
+                                    @Html.DropDownListFor(x => x.PorteId, new SelectList(Model.Portes, "Id", "Nome"), new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Razão Social</label>
+                                    @Html.TextBoxFor(x => x.RazaoSocial, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">CNPJ</label>
+                                    @Html.TextBoxFor(x => x.Cnpj, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group bmd-form-group is-filled">
+                                    <label class="bmd-label-floating">Ativo *</label>
+                                    @Html.DropDownListFor(x => x.Ativo, new SelectList(new List<object>() { new { Value = true, Nome = "Ativo" }, new { Value = false, Nome = "Inativo" } }, "Value", "Nome"), new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary pull-right">Confirmar</button>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/Content/assets/js/plugins/bootstrap-notify.js"></script>
+<script>
+    $('form').submit(function () {
+
+        var url = $(this).attr('action');
+        var form = $(this);
+
+        $.ajax({
+            url: url,
+            data: form.serialize(),
+            method: 'POST',
+            success: function (retorno)
+            {
+                console.log(retorno);
+
+                if (retorno.Result)
+                {
+                    if (retorno.Erros.length > 0) {
+                        alert("Erros: \r" + retorno.Erros.join("\r"));
+                    }
+                    else {
+                        alert("Não foi possível efeturar a operação.\rTente Novamente.");
+                    }
+                }
+                else {
+                    $('div.content').html(retorno);
+                }
+            },
+            error: function() {
+                alert("Não foi possível efeturar a operação.\rTente Novamente.");
+            },
+            beforeSend: function () {
+                $('.overlay').show();
+            },
+            complete: function () {
+                $('.overlay').hide();
+            }
+        });
+
+        return false;
+    })
+</script>
